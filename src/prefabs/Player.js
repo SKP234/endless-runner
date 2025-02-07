@@ -6,7 +6,6 @@ class Player extends Phaser.GameObjects.Sprite {
       scene.physics.add.existing(this)
       //this.body.setCollideWorldBounds(true)
       this.body.setBounce(1)
-      this.accelMult = 1
       this.accelDir = 0
       this.body.setSize(7, 12).setOffset(0, 0)
       this.setScale(4)
@@ -21,21 +20,28 @@ class Player extends Phaser.GameObjects.Sprite {
 
   }
 
-  update(cursors, rocketstart) {
+  update(cursors, rocketstart, boost) {
     if(rocketstart){
       if (cursors.left.isDown) {
-        this.accelDir = -1
+        this.accelDir = -2
+        if(boost){
+          this.accelDir = -4
+        }
       } else if (cursors.right.isDown) {
-        this.accelDir = 1
+        this.accelDir = 2
+        if(boost){
+          this.accelDir = 4
+        }
       } else {
         this.accelDir = 0
       }
     
       if(Math.sign(this.accelDir) == Math.sign(this.body.velocity.x)){ // normal speed
-        this.body.setVelocityX(this.body.velocity.x + (this.accelDir * this.accelMult))
+        this.body.setVelocityX(this.body.velocity.x + (this.accelDir))
       } else { // decelerates faster
-        this.body.setVelocityX(this.body.velocity.x + (this.accelDir * this.accelMult * 2))
+        this.body.setVelocityX(this.body.velocity.x + (this.accelDir * 2))
       }
+      this.body.setVelocityY(0)
 
     }
     

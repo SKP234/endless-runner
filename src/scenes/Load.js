@@ -33,8 +33,13 @@ class Load extends Phaser.Scene {
         })
         
         this.load.image('moon', './assets/moon.png')
+        this.load.image('star', './assets/star.png')
+        this.load.image('fuel', './assets/fuel.png')
             
         this.load.audio('sfx-explode', './assets/explode.wav')
+        this.load.audio('sfx-rockhit', './assets/clang.wav')
+        this.load.audio('sfx-fuel', './assets/fuel.wav')
+        this.load.audio('sfx-boost', './assets/boost.wav')
         
     }
 
