@@ -25,7 +25,7 @@
 // [yes] Include one or more animated characters that use a texture atlas/sprite sheet* (1)
 // [yes] Simulate scrolling with a tileSprite (or equivalent means) (1)
 // [yes] Implement proper collision detection (via Arcade Physics or a custom routine) (1)
-// Have looping background music* (1)
+// [yes]Have looping background music* (1)
 // [yes]Use a minimum of four sound effects for key mechanics, UI, and/or significant events appropriate to your game design (1)
 // [rocks/fuel moves faster as well as an expanding game width which requires more movement to get fuel] Use randomness to generate escalating challenge, e.g. terrain, pickups, etc. (1)
 // [score and fuel pickups/speed] Include some metric of accomplishment that a player can improve over time, e.g., score, survival time, etc. (1)
@@ -62,6 +62,7 @@ let game = new Phaser.Game(config)
 
 
 let MAX_WIDTH = 800
-let minRockTime = 750
+let minRockTime = 400
+let minFuelTime = 2000
 let starSpawn, rockSpawn, fuelSpawn
 let alphaChange = 0.0006

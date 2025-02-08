@@ -8,7 +8,10 @@ class Menu extends Phaser.Scene {
     create() {
         this.cursors = this.input.keyboard.createCursorKeys()
         this.keyENTER = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER)
-        this.menuText = this.add.text(game.config.width / 2, game.config.height / 3, 'press ENTER').setOrigin(0.5)
+        this.menuText = this.add.text(game.config.width / 2, game.config.height / 3, 'press ENTER to start').setOrigin(0.5)
+        this.creditText = this.add.text(game.config.width / 2, game.config.height / 3+20, 'press DOWN for credits', {
+            fontSize: '12px'
+        }).setOrigin(0.5)
 
         this.tutorialText = this.add.text(game.config.width / 2, game.config.height / 3 * 2 - 100, 
             'arrow keys to move\n\nup to boost\nwhen full\n\nboost through rocks\nto keep momentum\n\ncollect fuel to\nlast longer\n\nescape the', {

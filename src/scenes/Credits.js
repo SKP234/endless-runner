@@ -10,8 +10,8 @@ class Credits extends Phaser.Scene {
         this.returnText = this.add.text(this.scale.width / 2, game.config.height / 3, 'press UP').setOrigin(0.5)
 
         this.creditsText = this.add.text(this.scale.width / 2, game.config.height / 3 * 2 - 100, 
-            "\nhttps://pixabay.com/sound-effects/metallic-clang-90964/\nall other audio effects made in jfxr.frozenfractal.com\nall other visual assets made in www.pixilart.com\nhttps://pixabay.com/sound-effects/woosh-104586/\nhttps://pixabay.com/sound-effects/large-rocket-engine-86240/", {
-            fontSize: '20px'
+            "\nhttps://pixabay.com/sound-effects/metallic-clang-90964/\nall other audio effects made in jfxr.frozenfractal.com\nall other visual assets made in www.pixilart.com\nhttps://pixabay.com/sound-effects/woosh-104586/\nhttps://pixabay.com/sound-effects/large-rocket-engine-86240/\nhttps://pixabay.com/music/video-games-currently-under-water-239947/\nhttps://pixabay.com/sound-effects/tv-static-noise-291374/", {
+            fontSize: '19px'
         }).setOrigin(0.5)
     
         

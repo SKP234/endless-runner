@@ -31,7 +31,11 @@ class Play extends Phaser.Scene {
         this.boostPoints = 1
         this.alpha = 0.7
         this.boostsound = this.sound.add('sfx-boost')
-        //this.bgm = this.sound.add('bgm')
+        this.bgm = this.sound.add('bgm', {loop: true})
+        this.bgm.setVolume(0.2)
+        this.bgm.play()
+        this.static = this.sound.add('static')
+        this.static.setVolume(0.2)
         // controls text fade away
         this.tutorialText = this.add.text(game.config.width / 2, game.config.height / 3 * 2-100, 
             'arrow keys to move\n\nup to boost\nwhen full\n\nboost through rocks\nto keep momentum\n\ncollect fuel to\nlast longer\n\nescape the', {
@@ -184,7 +188,7 @@ class Play extends Phaser.Scene {
         //fuel updates
         this.normalSpeed = this.baseSpeed + (this.fuelCollected * 10)
         if(!this.gameover){
-            this.voidSpeed = this.basevoidSpeed +(this.fuelSpawned * 10)
+            this.voidSpeed = this.basevoidSpeed +(this.fuelSpawned * 8)
         }
         //boost bar update
         this.boostBar.clear()
@@ -232,25 +236,28 @@ class Play extends Phaser.Scene {
             this.rocketstart = false
             this.gameover = true
         })
-        // rock/player collision
-        this.physics.add.collider(this.rocks, this.player, (rock, player) =>{
-            if(!this.boost && this.normalSpeed > 0){
-                this.baseSpeed -= 10
-            }
-            this.sound.play('sfx-rockhit')
-            rock.destroy()
-        })
-        // fuel/player collision
-        this.physics.add.overlap(this.fuels, this.player, (fuel, player) =>{
-            this.fuelCollected += 1
-            this.boostPoints += 0.5
-            this.sound.play('sfx-fuel')
-            fuel.destroy()
-            if(this.scale.width < MAX_WIDTH){
-                this.scale.setGameSize(this.scale.width + 10, this.scale.height)
-                this.physics.world.setBounds(0, 0, this.scale.width + 10, this.scale.height)
-            }
-        })
+        if(!this.gameover){
+            
+            // rock/player collision
+            this.physics.add.collider(this.rocks, this.player, (rock, player) =>{
+                if(!this.boost && this.normalSpeed > 0){
+                    this.baseSpeed -= 10
+                }
+                this.sound.play('sfx-rockhit')
+                rock.destroy()
+            })
+            // fuel/player collision
+            this.physics.add.overlap(this.fuels, this.player, (fuel, player) =>{
+                this.fuelCollected += 1
+                this.boostPoints += 0.5
+                this.sound.play('sfx-fuel')
+                fuel.destroy()
+                if(this.scale.width < MAX_WIDTH){
+                    this.scale.setGameSize(this.scale.width + 10, this.scale.height)
+                    this.physics.world.setBounds(0, 0, this.scale.width + 10, this.scale.height)
+                }
+            })
+        }
 
         //game over sequence
         if(this.gameover){
@@ -269,6 +276,8 @@ class Play extends Phaser.Scene {
                 delay: 1000,
                 callback: () => {
                     this.sound.play('sfx-explode')
+                    this.bgm.stop()
+                    this.static.play()
                 },
               })
             this.endScreen = this.time.addEvent({
@@ -289,6 +298,8 @@ class Play extends Phaser.Scene {
                             fontSize: '20px'
                         }).setOrigin(0.5)
                         this.returnText.setDepth(202)
+                        
+                        this.static.stop()
                   },
                 })
                 this.endscreen = true
@@ -296,6 +307,7 @@ class Play extends Phaser.Scene {
 
             
             
+        console.log(this.rockSpawner.delay)
 
 
         // update() for all prefabs
@@ -306,12 +318,16 @@ class Play extends Phaser.Scene {
             this.stars.getChildren()[i].update(this.playerSpeed, this.boost)
         }
         if(this.rockSpawner.delay > minRockTime){
-            this.rockSpawner.delay = (5000)*(game.config.width / this.scale.width)
+            this.rockSpawner.delay = (5000)*(game.config.width / this.scale.width) - (this.score / 5)
         }
         for(let i = 0; i < this.rocks.getChildren().length; i++){
             this.rocks.getChildren()[i].update(this.playerSpeed, this.boost)
         }
-        this.fuelSpawner.delay = (5000)*(game.config.width / this.scale.width)
+        
+        if(this.fuelSpawner.delay > minFuelTime){
+            this.fuelSpawner.delay = (5000)*(game.config.width / this.scale.width) - (this.score / 3)
+
+        }
         for(let i = 0; i < this.fuels.getChildren().length; i++){
             this.fuels.getChildren()[i].update(this.playerSpeed, this.boost)
         }

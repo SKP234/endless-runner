@@ -40,6 +40,8 @@ class Load extends Phaser.Scene {
         this.load.audio('sfx-rockhit', './assets/clang.wav')
         this.load.audio('sfx-fuel', './assets/fuel.wav')
         this.load.audio('sfx-boost', './assets/boost.wav')
+        this.load.audio('bgm', './assets/bgm.mp3')
+        this.load.audio('static', './assets/static.mp3')
         
     }
 

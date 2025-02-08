@@ -42,6 +42,7 @@ class Player extends Phaser.GameObjects.Sprite {
         this.body.setVelocityX(this.body.velocity.x + (this.accelDir * 2))
       }
       this.body.setVelocityY(0)
+      this.y = 600
 
     }
     
