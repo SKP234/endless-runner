@@ -62,7 +62,7 @@ let game = new Phaser.Game(config)
 
 
 let MAX_WIDTH = 800
-let minRockTime = 400
+let minRockTime = 200
 let minFuelTime = 2000
 let starSpawn, rockSpawn, fuelSpawn
 let alphaChange = 0.0006

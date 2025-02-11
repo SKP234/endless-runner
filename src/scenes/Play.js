@@ -32,7 +32,7 @@ class Play extends Phaser.Scene {
         this.alpha = 0.7
         this.boostsound = this.sound.add('sfx-boost')
         this.bgm = this.sound.add('bgm', {loop: true})
-        this.bgm.setVolume(0.2)
+        this.bgm.setVolume(0.15)
         this.bgm.play()
         this.static = this.sound.add('static')
         this.static.setVolume(0.2)
@@ -158,7 +158,7 @@ class Play extends Phaser.Scene {
           delay: (5000)*(game.config.width / this.scale.width),
           callback: () => {
             if(!this.gameover){
-              rockSpawn = new Rock(this, Phaser.Math.Between(0, this.scale.width), 0, 'moon').setOrigin(0.5,0)
+              rockSpawn = new Rock(this, Phaser.Math.Between(0, this.scale.width), -70, 'moon').setOrigin(0.5,0)
               this.rocks.add(rockSpawn)
             }
           },
@@ -215,7 +215,7 @@ class Play extends Phaser.Scene {
         if (this.boost && this.boostPoints <= 0 && this.rocketstart) {
             this.boost = false
         }
-        this.boostSpeed = this.normalSpeed * 3
+        this.boostSpeed = this.normalSpeed * 1.5
         if(this.boost){
             this.boostPoints -= 0.005
             if(!this.boostsound.isPlaying){
@@ -253,8 +253,8 @@ class Play extends Phaser.Scene {
                 this.sound.play('sfx-fuel')
                 fuel.destroy()
                 if(this.scale.width < MAX_WIDTH){
-                    this.scale.setGameSize(this.scale.width + 10, this.scale.height)
-                    this.physics.world.setBounds(0, 0, this.scale.width + 10, this.scale.height)
+                    this.scale.setGameSize(this.scale.width + 30, this.scale.height)
+                    this.physics.world.setBounds(0, 0, this.scale.width, this.scale.height)
                 }
             })
         }

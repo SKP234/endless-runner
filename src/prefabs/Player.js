@@ -23,14 +23,14 @@ class Player extends Phaser.GameObjects.Sprite {
   update(cursors, rocketstart, boost) {
     if(rocketstart){
       if (cursors.left.isDown) {
-        this.accelDir = -2
+        this.accelDir = -3
         if(boost){
-          this.accelDir = -4
+          this.accelDir = -6
         }
       } else if (cursors.right.isDown) {
-        this.accelDir = 2
+        this.accelDir = 3
         if(boost){
-          this.accelDir = 4
+          this.accelDir = 6
         }
       } else {
         this.accelDir = 0
@@ -39,7 +39,7 @@ class Player extends Phaser.GameObjects.Sprite {
       if(Math.sign(this.accelDir) == Math.sign(this.body.velocity.x)){ // normal speed
         this.body.setVelocityX(this.body.velocity.x + (this.accelDir))
       } else { // decelerates faster
-        this.body.setVelocityX(this.body.velocity.x + (this.accelDir * 2))
+        this.body.setVelocityX(this.body.velocity.x + (this.accelDir * 4))
       }
       this.body.setVelocityY(0)
       this.y = 600
